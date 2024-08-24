@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A Node.js API to fetch music data",
   "main": "index.js",
+  "type": "module", // Add this line to enable ES Modules
   "scripts": {
     "start": "node index.js"
   },
