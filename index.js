@@ -1,6 +1,6 @@
-import express from 'express';
-import fetch from 'node-fetch';
-import path from 'path';
+const express = require('express');
+const fetch = require('node-fetch'); // Now using CommonJS compatible version 
+const path = require('path');
 
 const app = express();
 const port = process.env.PORT || 3000;
