@@ -1,11 +1,11 @@
-const express = require('express');
-const fetch = require('node-fetch');
-const path = require('path'); 
+import express from 'express';
+import fetch from 'node-fetch';
+import path from 'path';
 
 const app = express();
-const port = process.env.PORT || 3000; 
+const port = process.env.PORT || 3000;
 
-app.use(express.static(path.join(__dirname, 'public'))); 
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/play', async (req, res) => {
   const songName = req.query.song;
@@ -23,8 +23,8 @@ app.get('/play', async (req, res) => {
       throw new Error(`API request failed with status ${response.status}`);
     }
 
-    const data = await response.json(); 
-    res.json(data); 
+    const data = await response.json();
+    res.json(data);
 
   } catch (error) {
     console.error('Error fetching song:', error);
