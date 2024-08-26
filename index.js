@@ -15,7 +15,7 @@ app.get('/play', async (req, res) => {
     return res.status(400).json({ error: 'Missing song name' });
   }
 
-  const apiUrl = `https://api.elianabot.xyz/tools/ytmp3.php?music=${encodeURIComponent(songName)}`;
+  const apiUrl = `https://api.elianabot.xyz/tools/ytmp3.php?music=${encodeURIComponent(songName)}&quality=128`; 
 
   try {
     const response = await fetch(apiUrl);
@@ -27,7 +27,7 @@ app.get('/play', async (req, res) => {
     const data = await response.json();
     const audioUrl = data.music_data.link;
 
-    https.get(audioUrl, (audioResponse) => {
+    https.get(audioUrl, { followRedirects: true }, (audioResponse) => {
       res.setHeader('Content-Type', 'audio/mpeg'); 
       audioResponse.pipe(res);
     });
