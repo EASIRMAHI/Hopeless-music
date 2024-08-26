@@ -1,6 +1,7 @@
 const express = require('express');
-const fetch = require('node-fetch'); // Now using CommonJS compatible version 
+const fetch = require('node-fetch'); 
 const path = require('path');
+const https = require('https');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -24,10 +25,15 @@ app.get('/play', async (req, res) => {
     }
 
     const data = await response.json();
-    res.json(data);
+    const audioUrl = data.music_data.link;
+
+    https.get(audioUrl, (audioResponse) => {
+      res.setHeader('Content-Type', 'audio/mpeg'); 
+      audioResponse.pipe(res);
+    });
 
   } catch (error) {
-    console.error('Error fetching song:', error);
+    console.error('Error fetching or streaming song:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
